@@ -1,0 +1,41 @@
+<h1>User Page - <small><%= @user.name %></small></h1>
+
+
+<% if @user == current_user %>
+  <h3>Events Hosted</h3>
+  <%= "None" if @user.events.empty? %>
+  <% @user.events.each do |e| %>
+    <ul>
+      <li><strong><%= link_to "#{e.location}", event_path(e) %></strong> - <%= e.event_date.to_formatted_s(:long) %></li>
+    </ul>
+  <% end %>
+
+  <h3>Future Events</h3>
+  <%= "Not attending any future events" if @upcoming_events.empty? %>
+  <% @upcoming_events.each do |e| %>
+    <ul>
+      <li><strong><%= link_to "#{e.location}", event_path(e) %></strong> - <%= e.event_date.to_formatted_s(:long) %></li>
+    </ul>
+  <% end %>
+
+  <h3>Past Attended Events</h3>
+  <%= "#{@user.name} did not attend any events" if @past_events.empty? %>
+  <% @past_events.each do |e| %>
+    <ul>
+      <li><strong><%= link_to "#{e.location}", event_path(e) %></strong> - <%= e.event_date.to_formatted_s(:long) %></li>
+    </ul>
+  <% end %>
+
+  <div>
+    <h3>New Event</h3>
+    <%= form_for :event, url: events_path do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.label :location, "Location/Name" %>
+      <%= f.text_field :location %>
+      <%= f.label :event_date %>
+      <%= f.datetime_local_field :event_date %>
+      <%= f.submit "Create New Event" %>
+    <% end %>
+
+  </div>
+<% end %>

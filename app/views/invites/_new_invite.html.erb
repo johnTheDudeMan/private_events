@@ -1,0 +1,8 @@
+<% if current_user && @event.creator_id == current_user.id %>
+  <h4>Invite Friends</h4>
+  <%= "User does not exist!" if flash[:danger] %>
+  <%= form_for :invite, url: event_invites_path(@event.id) do |f| %>
+    Name: <%= f.text_field :user_name %>
+    <%= f.submit "Invite" %>
+  <% end %>
+<% end %>

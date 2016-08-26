@@ -1,0 +1,12 @@
+
+<div style="float: right; display: inline;">
+  <% if logged_in? %>
+    <strong>Signed in as: <small><%= link_to "#{@current_user.name}", user_path(@current_user.id) %></small></strong><br>
+    <%= link_to "Log Out", session_path(@current_user.id), method: "delete" %>
+  <% else %>
+    <%= link_to "Sign in here", new_session_path %>
+    <br>
+    <%= link_to "New user?", new_user_path %>
+  <% end %>
+  <br><%= link_to "Home", root_path %>
+</div>

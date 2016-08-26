@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  root 'events#index'
+  resources :users, only: [:new, :create, :show]
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :events, only: [:index, :show, :new, :create] do
+  #post 'invite' => 'invites#create'
+    resources :invites, only: [:create]
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

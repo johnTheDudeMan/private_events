@@ -1,0 +1,9 @@
+<h2><%= @event.location %> - <small>hosted by: <%= @event.creator.name %></small></h2>
+<h3>Guests invited:</h3>
+<% @event.attendees.each do |e| %>
+  <ul>
+    <li><%= link_to e.name, user_path(e) %></li>
+  </ul>
+<% end %>
+
+<%= render 'invites/new_invite' %>
